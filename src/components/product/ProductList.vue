@@ -2,7 +2,7 @@
   <h5>Listado de Productos</h5>
   <div class="product-list">
     <div class="product-grid">
-      <div class="product-item" v-for="item in products" :key="item.id">
+      <div class="product-item" v-for="item in filtrarProductoPorCategoria" :key="item.id">
         <ProductItem :product="item" />
       </div>
     </div>
@@ -23,6 +23,19 @@ import ProductItem from "src/components/product/ProductItem.vue";
 export default {
   name: "ProductList",
   components: { ProductItem },
+  computed: {
+    filtrarProductoPorCategoria() {
+      return this.products.filter(
+        (product) => product.category.id === this.categoriaFiltrada
+      )
+    }
+  },
+  props: {
+    categoriaFiltrada: {
+      type: Number,
+      default: null
+    }
+  },
   data() {
     return {
       products: [],
